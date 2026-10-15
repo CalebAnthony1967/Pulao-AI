@@ -6,14 +6,35 @@ import { defineConfig } from 'vite'
 export default defineConfig({
   plugins: [
     base44({
-      // Support for legacy code that imports the base44 SDK with @/integrations, @/entities, etc.
-      // can be removed if the code has been updated to use the new SDK imports from @base44/sdk
       legacySDKImports: process.env.BASE44_LEGACY_SDK_IMPORTS === 'true',
-      hmrNotifier: true,
-      navigationNotifier: true,
-      analyticsTracker: true,
-      visualEditAgent: true
+      hmrNotifier: false,
+      navigationNotifier: false,
+      analyticsTracker: false,
+      visualEditAgent: false
     }),
     react(),
-  ]
+  ],
+  build: {
+    chunkSizeWarningLimit: 3500,
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            if (id.includes('react') || id.includes('react-dom') || id.includes('react-router-dom')) {
+              return 'vendor-react';
+            }
+            if (id.includes('lucide-react')) {
+              return 'vendor-icons';
+            }
+            if (id.includes('@supabase')) {
+              return 'vendor-supabase';
+            }
+            if (id.includes('@langchain')) {
+              return 'vendor-langchain';
+            }
+          }
+        },
+      },
+    },
+  },
 });
