@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { FileText, FolderOpen, ShieldQuestion } from "lucide-react";
+import { Download, FileText, FolderOpen, ShieldQuestion } from "lucide-react";
 import { listMyBids, listMyEvaluations } from "@/lib/data";
 import { useSession } from "@/lib/session";
 import { formatCurrency, formatDate, plainStatus } from "@/lib/format";
@@ -33,12 +33,25 @@ export default function SupplierPortal() {
       title="Your bids and the open register"
       description="Track your submissions, review compliance status, and check draft bids against statutory registers before lodging."
       actions={
-        <Button asChild className="bg-compliance text-white hover:bg-compliance/90">
-          <Link to="/supplier/self-audit">
-            <ShieldQuestion className="mr-2 h-4 w-4" />
-            Verify a draft bid
-          </Link>
-        </Button>
+        <div className="flex flex-wrap items-center gap-2">
+          <Button asChild variant="outline" className="border-border bg-card hover:bg-muted text-xs">
+            <a
+              href="/sample-bid-packet.pdf"
+              download="Apex_Sovereign_Technologies_Bid_Packet_T-2026-KEBS-014.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Download className="mr-1.5 h-3.5 w-3.5 text-muted-foreground" />
+              Demo Bid Packet (PDF)
+            </a>
+          </Button>
+          <Button asChild className="bg-compliance text-white hover:bg-compliance/90 text-xs">
+            <Link to="/supplier/self-audit">
+              <ShieldQuestion className="mr-1.5 h-3.5 w-3.5" />
+              Verify a draft bid
+            </Link>
+          </Button>
+        </div>
       }
     >
       <RoleGate roles={["supplier", "admin", "superadmin"]}>

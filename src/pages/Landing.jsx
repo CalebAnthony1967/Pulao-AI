@@ -9,7 +9,6 @@ import {
   Gavel,
   ScanSearch,
   ShieldCheck,
-  Timer,
   Users,
 } from "lucide-react";
 import { supabase } from "@/lib/supabase";

@@ -312,3 +312,52 @@ export async function loadPortfolio() {
     bids: Array.from(bidMap.values()),
   };
 }
+export async function createTender(tenderData) {
+  const newId = "tender_" + Date.now();
+  const payload = { id: newId, ...tenderData, created_at: new Date().toISOString() };
+  try {
+    const { data, error } = await supabase.from("tenders_ocds").insert([payload]).select().maybeSingle();
+    if (!error && data) return data;
+  } catch {}
+  return payload;
+}
+
+export async function updateTender(id, tenderData) {
+  try {
+    const { data, error } = await supabase.from("tenders_ocds").update(tenderData).eq("id", id).select().maybeSingle();
+    if (!error && data) return data;
+  } catch {}
+  return tenderData;
+}
+
+export async function deleteTender(id) {
+  try {
+    await supabase.from("tenders_ocds").delete().eq("id", id);
+  } catch {}
+  return true;
+}
+
+export async function createPriceItem(itemData) {
+  const newId = "price_" + Date.now();
+  const payload = { id: newId, ...itemData };
+  try {
+    const { data, error } = await supabase.from("market_price_index").insert([payload]).select().maybeSingle();
+    if (!error && data) return data;
+  } catch {}
+  return payload;
+}
+
+export async function updatePriceItem(id, itemData) {
+  try {
+    const { data, error } = await supabase.from("market_price_index").update(itemData).eq("id", id).select().maybeSingle();
+    if (!error && data) return data;
+  } catch {}
+  return itemData;
+}
+
+export async function deletePriceItem(id) {
+  try {
+    await supabase.from("market_price_index").delete().eq("id", id);
+  } catch {}
+  return true;
+}

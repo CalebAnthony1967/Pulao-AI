@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { AlertCircle, CheckCircle2, Loader2, Paperclip, Send, UploadCloud, Building2, Hash } from "lucide-react";
+import { AlertCircle, CheckCircle2, Loader2, Paperclip, Send, UploadCloud, Building2, Hash, Download, FileText, Sparkles, Trash2 } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import { recordAudit } from "@/lib/audit";
 import { runAuditPipeline } from "@/lib/tools";
@@ -23,6 +23,75 @@ export default function BidSubmissionForm({ tender, onSubmitted }) {
   const [error, setError] = useState(null);
   const [done, setDone] = useState(false);
   const [stage, setStage] = useState("");
+
+  const autoFillSampleDossier = () => {
+    setBidderName("Apex Sovereign Technologies Limited");
+    setRegistrationNumber("PVT-2024-889911");
+    // Pre-fill realistic line items tailored to this tender scope
+    if (
+      tender?.tender_number === "T-2026-KEBS-014" ||
+      tender?.title?.toLowerCase().includes("computer") ||
+      tender?.title?.toLowerCase().includes("switch")
+    ) {
+      setItems([
+        {
+          description: "Commercial Grade Desktop Computers (Intel Core i7 13th Gen, 32GB RAM, 1TB SSD, Win 11 Pro)",
+          quantity: 80,
+          unit_price: 95000,
+          unit_of_measure: "Units",
+        },
+        {
+          description: "27-inch 4K IPS Ultra-Slim Desktop Displays (3840x2160, USB-C 65W PD)",
+          quantity: 80,
+          unit_price: 28000,
+          unit_of_measure: "Units",
+        },
+        {
+          description: "24-Port Managed PoE+ Gigabit Network Switches (Layer 2/3 Enterprise, 370W)",
+          quantity: 20,
+          unit_price: 75000,
+          unit_of_measure: "Units",
+        },
+        {
+          description: "Structured Cat6A Pure Copper Cabling & 24-Port Loaded Patch Panels",
+          quantity: 20,
+          unit_price: 45000,
+          unit_of_measure: "Lots",
+        },
+      ]);
+    } else {
+      const budget = tender?.budget_allocation ? tender.budget_allocation * 0.95 : 12000000;
+      setItems([
+        {
+          description: `${tender?.title || "Main Scope Deliverables"} — Primary Implementation`,
+          quantity: 1,
+          unit_price: Math.round(budget * 0.7),
+          unit_of_measure: "Lot",
+        },
+        {
+          description: "Quality Assurance, Testing, and Commissioning",
+          quantity: 1,
+          unit_price: Math.round(budget * 0.2),
+          unit_of_measure: "Lot",
+        },
+        {
+          description: "12-Month Maintenance & Warranty Support",
+          quantity: 1,
+          unit_price: Math.round(budget * 0.1),
+          unit_of_measure: "Year",
+        },
+      ]);
+    }
+
+    // Attach sample dummy bid packet PDF
+    setDocuments([
+      {
+        uri: "/sample-bid-packet.pdf",
+        name: "Apex_Sovereign_Technologies_Bid_Packet_T-2026-KEBS-014.pdf",
+        size: 44236,
+      },
+    ]);
+  };
 
   useEffect(() => {
     if (profile) {
@@ -231,11 +300,48 @@ export default function BidSubmissionForm({ tender, onSubmitted }) {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-5 rounded-xl border border-border bg-card p-5 shadow-sm">
-      <div>
-        <h3 className="font-semibold text-foreground">Submit Your Bid</h3>
-        <p className="mt-1 text-sm text-muted-foreground">
-          All submitted items and documentation are subject to statutory verification and committee review.
-        </p>
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <h3 className="font-semibold text-foreground">Submit Your Bid</h3>
+          <p className="mt-0.5 text-xs text-muted-foreground">
+            All submitted items and documentation are subject to statutory verification and committee review.
+          </p>
+        </div>
+      </div>
+
+      {/* Demo helper banner */}
+      <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-navy/20 bg-navy/5 p-3">
+        <div className="flex items-center gap-2.5">
+          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-navy text-white">
+            <FileText className="h-4 w-4" />
+          </div>
+          <div>
+            <p className="text-xs font-semibold text-foreground">Demonstration Bid Packet Available</p>
+            <p className="text-[11px] text-muted-foreground">
+              Official dummy tender dossier with statutory certificates, priced schedule, and sworn affidavits.
+            </p>
+          </div>
+        </div>
+        <div className="flex flex-wrap items-center gap-2">
+          <a
+            href="/sample-bid-packet.pdf"
+            download="Apex_Sovereign_Technologies_Bid_Packet_T-2026-KEBS-014.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 rounded-md border border-border bg-card px-2.5 py-1 text-xs font-medium text-foreground shadow-sm hover:bg-muted"
+          >
+            <Download className="h-3 w-3 text-muted-foreground" />
+            Download Sample PDF
+          </a>
+          <button
+            type="button"
+            onClick={autoFillSampleDossier}
+            className="inline-flex items-center gap-1.5 rounded-md bg-navy px-2.5 py-1 text-xs font-medium text-white shadow-sm hover:bg-navy/90"
+          >
+            <Sparkles className="h-3 w-3" />
+            Auto-Fill Sample Bid
+          </button>
+        </div>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2">
@@ -260,7 +366,7 @@ export default function BidSubmissionForm({ tender, onSubmitted }) {
             id="regno"
             value={registrationNumber}
             onChange={(event) => setRegistrationNumber(event.target.value)}
-            placeholder="e.g. PVT-2021-998811"
+            placeholder="e.g. PVT-2024-889911"
           />
         </div>
       </div>
@@ -271,7 +377,16 @@ export default function BidSubmissionForm({ tender, onSubmitted }) {
       </div>
 
       <div className="space-y-2">
-        <Label>Bid packet documents</Label>
+        <div className="flex items-center justify-between">
+          <Label>Bid packet documents</Label>
+          <a
+            href="/sample-bid-packet.pdf"
+            download="sample-bid-packet.pdf"
+            className="text-[11px] text-navy hover:underline"
+          >
+            Download dummy packet (.pdf)
+          </a>
+        </div>
         <label className="flex cursor-pointer flex-col items-center gap-2 rounded-lg border border-dashed border-border bg-background px-4 py-6 text-center transition-colors hover:border-navy/40">
           {uploading ? (
             <Loader2 className="h-5 w-5 animate-spin text-navy" />
@@ -282,7 +397,7 @@ export default function BidSubmissionForm({ tender, onSubmitted }) {
             {uploading ? "Attaching documents" : "Attach your bid packet (PDF, images, spreadsheets)"}
           </span>
           <span className="text-xs text-muted-foreground">
-            Supporting annexures and statutory certificates for committee review.
+            Supporting annexures, statutory certificates, and priced schedules for committee review.
           </span>
           <input type="file" multiple className="hidden" onChange={handleFiles} disabled={uploading} />
         </label>
@@ -290,9 +405,37 @@ export default function BidSubmissionForm({ tender, onSubmitted }) {
         {documents.length ? (
           <ul className="space-y-1.5">
             {documents.map((doc, idx) => (
-              <li key={idx} className="flex items-center gap-2 text-sm text-muted-foreground">
-                <Paperclip className="h-3.5 w-3.5" />
-                {doc.name}
+              <li
+                key={idx}
+                className="flex items-center justify-between rounded-md border border-border bg-muted/30 px-3 py-2 text-xs"
+              >
+                <div className="flex items-center gap-2 truncate">
+                  <Paperclip className="h-3.5 w-3.5 shrink-0 text-navy" />
+                  <span className="font-medium text-foreground truncate">{doc.name}</span>
+                  {doc.size ? (
+                    <span className="text-muted-foreground">({Math.round(doc.size / 1024)} KB)</span>
+                  ) : null}
+                </div>
+                <div className="flex items-center gap-2 shrink-0">
+                  {doc.uri ? (
+                    <a
+                      href={doc.uri}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs font-medium text-navy hover:underline"
+                    >
+                      View
+                    </a>
+                  ) : null}
+                  <button
+                    type="button"
+                    onClick={() => setDocuments(documents.filter((_, i) => i !== idx))}
+                    className="text-muted-foreground hover:text-critical"
+                    title="Remove document"
+                  >
+                    <Trash2 className="h-3.5 w-3.5" />
+                  </button>
+                </div>
               </li>
             ))}
           </ul>

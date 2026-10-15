@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { AlertTriangle, CheckCircle2, Loader2, ShieldQuestion, XCircle } from "lucide-react";
+import { AlertTriangle, CheckCircle2, Loader2, ShieldQuestion, XCircle, Download, FileText, Sparkles } from "lucide-react";
 import { verifyStatutoryCompliance, benchmarkPricing } from "@/lib/tools";
 import { executeMcpTool } from "@/lib/mcpClient";
 import { recordAudit } from "@/lib/audit";
@@ -25,6 +25,37 @@ export default function SelfAudit() {
   const [running, setRunning] = useState(false);
   const [result, setResult] = useState(null);
   const [error, setError] = useState(null);
+
+  const autoFillSampleDossier = () => {
+    setBidderName("Apex Sovereign Technologies Limited");
+    setRegistrationNumber("PVT-2024-889911");
+    setItems([
+      {
+        description: "Commercial Grade Desktop Computers (Intel Core i7 13th Gen, 32GB RAM, 1TB SSD, Win 11 Pro)",
+        quantity: 80,
+        unit_price: 95000,
+        unit_of_measure: "Units",
+      },
+      {
+        description: "27-inch 4K IPS Ultra-Slim Desktop Displays (3840x2160, USB-C 65W PD)",
+        quantity: 80,
+        unit_price: 28000,
+        unit_of_measure: "Units",
+      },
+      {
+        description: "24-Port Managed PoE+ Gigabit Network Switches (Layer 2/3 Enterprise, 370W)",
+        quantity: 20,
+        unit_price: 75000,
+        unit_of_measure: "Units",
+      },
+      {
+        description: "Structured Cat6A Pure Copper Cabling & 24-Port Loaded Patch Panels",
+        quantity: 20,
+        unit_price: 45000,
+        unit_of_measure: "Lots",
+      },
+    ]);
+  };
 
   useEffect(() => {
     listPriceIndex().then(setIndex).catch(() => setIndex([]));
@@ -92,6 +123,41 @@ export default function SelfAudit() {
       <RoleGate roles={["supplier", "admin", "superadmin"]}>
         <div className="grid gap-6 lg:grid-cols-[1.2fr_1fr] lg:items-start">
           <div className="space-y-5 rounded-xl border border-border bg-card p-5 shadow-sm">
+            {/* Demo helper banner */}
+            <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-navy/20 bg-navy/5 p-3">
+              <div className="flex items-center gap-2.5">
+                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-navy text-white">
+                  <FileText className="h-4 w-4" />
+                </div>
+                <div>
+                  <p className="text-xs font-semibold text-foreground">Demonstration Bid Packet Available</p>
+                  <p className="text-[11px] text-muted-foreground">
+                    Download the dummy tender packet (PDF) or test pre-submission verification instantly.
+                  </p>
+                </div>
+              </div>
+              <div className="flex flex-wrap items-center gap-2">
+                <a
+                  href="/sample-bid-packet.pdf"
+                  download="Apex_Sovereign_Technologies_Bid_Packet_T-2026-KEBS-014.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 rounded-md border border-border bg-card px-2.5 py-1 text-xs font-medium text-foreground shadow-sm hover:bg-muted"
+                >
+                  <Download className="h-3 w-3 text-muted-foreground" />
+                  Download Sample PDF
+                </a>
+                <button
+                  type="button"
+                  onClick={autoFillSampleDossier}
+                  className="inline-flex items-center gap-1.5 rounded-md bg-navy px-2.5 py-1 text-xs font-medium text-white shadow-sm hover:bg-navy/90"
+                >
+                  <Sparkles className="h-3 w-3" />
+                  Auto-Fill Sample Bid
+                </button>
+              </div>
+            </div>
+
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="space-y-1.5">
                 <Label htmlFor="name">Company name</Label>
