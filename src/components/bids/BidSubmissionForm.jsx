@@ -211,7 +211,7 @@ export default function BidSubmissionForm({ tender, onSubmitted }) {
     return (
       <div className="rounded-xl border border-border bg-card p-6 text-center shadow-sm">
         <Loader2 className="mx-auto h-7 w-7 animate-spin text-navy" />
-        <h3 className="mt-3 font-semibold text-foreground">Auditing your bid</h3>
+        <h3 className="mt-3 font-semibold text-foreground">Verifying your submission</h3>
         <p className="mt-2 text-sm text-muted-foreground">{stage}</p>
       </div>
     );
@@ -221,10 +221,9 @@ export default function BidSubmissionForm({ tender, onSubmitted }) {
     return (
       <div className="rounded-xl border border-compliance/30 bg-compliance-soft p-6 text-center">
         <CheckCircle2 className="mx-auto h-8 w-8 text-compliance" />
-        <h3 className="mt-3 text-lg font-semibold text-compliance">Your bid is lodged</h3>
+        <h3 className="mt-3 text-lg font-semibold text-compliance">Bid Submitted Successfully</h3>
         <p className="mt-2 text-sm leading-relaxed text-compliance/90">
-          {formatCurrency(total)} for {tender.tender_number}. The evaluation committee will audit it against the
-          statutory registers and the market price index before any award decision is made.
+          {formatCurrency(total)} submitted for {tender.tender_number}. Your submission has been recorded and will be reviewed by the evaluation committee alongside statutory checks and pricing benchmarks.
         </p>
       </div>
     );
@@ -233,9 +232,9 @@ export default function BidSubmissionForm({ tender, onSubmitted }) {
   return (
     <form onSubmit={handleSubmit} className="space-y-5 rounded-xl border border-border bg-card p-5 shadow-sm">
       <div>
-        <h3 className="font-semibold text-foreground">Lodge your bid</h3>
+        <h3 className="font-semibold text-foreground">Submit Your Bid</h3>
         <p className="mt-1 text-sm text-muted-foreground">
-          Everything you enter here is audited automatically. Nothing is awarded without committee sign-off.
+          All submitted items and documentation are subject to statutory verification and committee review.
         </p>
       </div>
 
@@ -283,7 +282,7 @@ export default function BidSubmissionForm({ tender, onSubmitted }) {
             {uploading ? "Attaching documents" : "Attach your bid packet (PDF, images, spreadsheets)"}
           </span>
           <span className="text-xs text-muted-foreground">
-            Optional, but the audit reads these to verify your annexures page by page.
+            Supporting annexures and statutory certificates for committee review.
           </span>
           <input type="file" multiple className="hidden" onChange={handleFiles} disabled={uploading} />
         </label>
@@ -311,7 +310,7 @@ export default function BidSubmissionForm({ tender, onSubmitted }) {
         <p className="text-sm font-semibold text-navy">Quoted total: {formatCurrency(total)}</p>
         <Button type="submit" disabled={submitting || uploading} className="bg-navy text-white hover:bg-navy/90">
           {submitting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Send className="mr-2 h-4 w-4" />}
-          Lodge bid for audit
+          Submit Bid
         </Button>
       </div>
     </form>

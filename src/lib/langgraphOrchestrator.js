@@ -406,18 +406,18 @@ async function auditVaultCommitNode(state) {
   }
 
   await recordAudit({
-    action: "LangGraph Multi-Step Procurement Pipeline Completed",
+    action: "Procurement Verification Workflow Completed",
     tool: "LangGraphOrchestrator",
     input: { tender_number: tender?.tender_number, bids_count: bids.length },
     output: { evaluations_generated: finalEvaluations.length, state_nodes: 8 },
   }).catch(() => {});
 
-  emitGraphUpdate({ node: "complete", status: "completed", label: "LangGraph Pipeline execution finished" });
+  emitGraphUpdate({ node: "complete", status: "completed", label: "Verification workflow complete" });
 
   return {
     currentNode: "audit_vault_commit",
     evaluations: finalEvaluations,
-    log: [`[audit_vault_commit] Successfully committed ${finalEvaluations.length} evaluation(s) into immutable audit vault`],
+    log: [`[audit_vault_commit] Successfully recorded ${finalEvaluations.length} evaluation(s) into the audit register`],
   };
 }
 
@@ -467,12 +467,12 @@ export async function runLangGraphPipeline({
     priceIndex,
     modelEngine,
     executionId,
-    log: [`Initiating LangGraph Orchestration [Execution ID: ${executionId}]`],
+    log: [`Initiating automated verification sequence [ID: ${executionId}]`],
   };
 
-  onProgress("Starting LangGraph Orchestrator pipeline...");
+  onProgress("Starting verification workflow...");
   const finalResult = await app.invoke(initialState);
-  onProgress("LangGraph pipeline execution complete");
+  onProgress("Verification workflow complete");
 
   return finalResult;
 }

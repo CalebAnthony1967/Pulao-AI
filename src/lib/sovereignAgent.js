@@ -18,19 +18,19 @@ import { recordAudit } from "./audit.js";
 export const AVAILABLE_MODELS = [
   {
     id: "sovereign-llama-3.3",
-    name: "Sovereign Llama 3.3 (Air-Gapped On-Premises)",
-    weights: "meta-llama/Llama-3.3-70B-Instruct (Open-Weights)",
-    residency: "Republic of Kenya (Zero Cross-Border Egress)",
-    badge: "Air-Gapped Sovereign",
-    description: "Executes on-premises without external network transmission. Enforces strict national data sovereignty for classified procurement packets.",
+    name: "Local Secure Engine (On-Premises)",
+    weights: "Meta Llama 3.3 70B (Local Inference)",
+    residency: "On-Premises Environment (Zero Cross-Border Egress)",
+    badge: "On-Premises",
+    description: "Processes evaluations within the local secure environment in compliance with data privacy regulations.",
   },
   {
     id: "frontier-gemini-2.5",
-    name: "Frontier Cloud Gemini 2.5 Flash",
-    weights: "Google Gemini 2.5 Flash (Frontier Cloud)",
-    residency: "Multi-Region Cloud (Non-Classified Benchmarking)",
-    badge: "Frontier Benchmark",
-    description: "Frontier model used for cross-jurisdictional price index comparison and multi-lingual validation.",
+    name: "Cloud Analysis Engine",
+    weights: "Gemini 2.5 (Cloud Benchmark)",
+    residency: "Cloud Processing Environment",
+    badge: "Cloud Review",
+    description: "Cloud analysis engine for price index comparison and multi-source market validation.",
   },
 ];
 

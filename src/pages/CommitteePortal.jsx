@@ -38,8 +38,8 @@ export default function CommitteePortal() {
   return (
     <PortalShell
       eyebrow="Evaluation committee"
-      title="Tender evaluation room"
-      description="Open a tender to see the automated compliance matrix, review every flag with its page reference, and sign the evaluation report off by hand."
+      title="Tender Evaluation"
+      description="Review tender submissions, evaluate compliance findings and pricing benchmarks, and record committee decisions."
     >
       <RoleGate roles={["committee", "admin", "superadmin"]}>
         <div className="space-y-6">
@@ -66,12 +66,12 @@ export default function CommitteePortal() {
           <div className="rounded-xl border border-border bg-card shadow-sm">
             <div className="flex items-center gap-2 border-b border-border px-5 py-4">
               <Gavel className="h-4 w-4 text-navy" />
-              <h2 className="font-semibold text-foreground">Tenders in the pipeline</h2>
+              <h2 className="font-semibold text-foreground">Tenders Under Evaluation</h2>
             </div>
 
             {rows === null ? (
               <div className="p-5">
-                <LoadingBlock label="Loading the pipeline" />
+                <LoadingBlock label="Loading tenders" />
               </div>
             ) : rows.length === 0 ? (
               <div className="p-5">
@@ -120,8 +120,7 @@ export default function CommitteePortal() {
           </div>
 
           <p className="text-xs text-muted-foreground">
-            Pulao-AI never awards a tender. Every award requires a signed committee decision recorded in the
-            immutable vault.
+            Automated checks are advisory. Formal tender awards require a signed evaluation committee decision recorded in the audit register.
           </p>
         </div>
       </RoleGate>

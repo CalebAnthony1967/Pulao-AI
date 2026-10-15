@@ -33,8 +33,8 @@ export default function ResearchPortal() {
   return (
     <PortalShell
       eyebrow="Policy & analytics"
-      title="PPADA stress-testing and market intelligence"
-      description="Where does the Public Procurement and Asset Disposal Act actually break down? These figures come from real audited bids on the register."
+      title="Procurement Analytics &amp; Market Intelligence"
+      description="System-wide compliance trends, price variance across entities, and statutory review metrics derived from tender evaluations."
       actions={
         <Button variant="outline" onClick={load} className="border-navy/25 text-navy hover:bg-navy-soft">
           <RefreshCw className="mr-2 h-4 w-4" />
@@ -46,21 +46,21 @@ export default function ResearchPortal() {
         {error ? (
           <div className="rounded-lg border border-critical/30 bg-critical-soft p-3 text-sm text-critical">{error}</div>
         ) : !metrics ? (
-          <LoadingBlock label="Aggregating procurement telemetry" />
+          <LoadingBlock label="Loading procurement analytics" />
         ) : (
           <div className="space-y-6">
             <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-              <StatCard label="Bids audited" value={totals.evaluations ?? 0} hint="Bid packets put through the audit" />
+              <StatCard label="Bids audited" value={totals.evaluations ?? 0} hint="Evaluated bid submissions" />
               <StatCard
                 label="Reports signed off"
                 value={totals.signed_off ?? 0}
-                hint="Finalised with a human signature"
+                hint="Completed committee sign-offs"
                 tone="compliance"
               />
               <StatCard
                 label="Committee overrides"
                 value={totals.overrides ?? 0}
-                hint="Findings set aside with a written note"
+                hint="Committee overrides with recorded notes"
                 tone="caution"
               />
               <StatCard

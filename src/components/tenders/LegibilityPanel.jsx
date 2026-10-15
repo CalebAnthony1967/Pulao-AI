@@ -53,7 +53,7 @@ export default function LegibilityPanel({ tender }) {
       <div className="rounded-xl border border-border bg-card p-5 shadow-sm">
         <h3 className="font-semibold text-foreground">Documents you must attach</h3>
         <p className="mt-1 text-sm text-muted-foreground">
-          Pulao-AI checks each of these against the state registers during the audit.
+          These documents are verified against statutory registers during preliminary compliance evaluation.
         </p>
         <ul className="mt-4 space-y-2">
           {documents.map((document) => (
@@ -70,10 +70,9 @@ export default function LegibilityPanel({ tender }) {
 
       <div className="rounded-xl border border-border bg-navy-soft p-5">
         <div className="flex flex-wrap items-center gap-2">
-          <StatusBadge tone="navy">Human decision required</StatusBadge>
+          <StatusBadge tone="navy">Committee Decision Required</StatusBadge>
           <p className="text-sm text-muted-foreground">
-            Pulao-AI never awards a tender. Every award is signed off by an evaluation committee member with a
-            written note on the record.
+            All evaluations are subject to review. Tender awards require formal sign-off by the evaluation committee in accordance with PPADA guidelines.
           </p>
         </div>
       </div>

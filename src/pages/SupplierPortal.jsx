@@ -31,12 +31,12 @@ export default function SupplierPortal() {
     <PortalShell
       eyebrow="Supplier desk"
       title="Your bids and the open register"
-      description="Track what you have lodged, see what the audit found, and self-check a draft before you commit to a submission."
+      description="Track your submissions, review compliance status, and check draft bids against statutory registers before lodging."
       actions={
         <Button asChild className="bg-compliance text-white hover:bg-compliance/90">
           <Link to="/supplier/self-audit">
             <ShieldQuestion className="mr-2 h-4 w-4" />
-            Run a self-audit
+            Verify a draft bid
           </Link>
         </Button>
       }
@@ -52,7 +52,7 @@ export default function SupplierPortal() {
               tone="compliance"
             />
             <StatCard
-              label="Flags raised against you"
+              label="Compliance notes"
               value={(evaluations || []).reduce(
                 (count, row) =>
                   count + (Array.isArray(row.findings) ? row.findings.filter((f) => f.severity !== "info").length : 0),

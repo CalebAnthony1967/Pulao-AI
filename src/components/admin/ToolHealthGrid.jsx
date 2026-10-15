@@ -45,9 +45,9 @@ export default function ToolHealthGrid({ logs, counts }) {
 
       <div className="rounded-xl border border-border bg-card shadow-sm">
         <div className="border-b border-border px-5 py-4">
-          <h3 className="font-semibold text-foreground">Audit tool health</h3>
+          <h3 className="font-semibold text-foreground">Verification Services Status</h3>
           <p className="mt-1 text-sm text-muted-foreground">
-            Every tool records its last successful run into the audit trail.
+            Operational status of statutory registries and automated verification services.
           </p>
         </div>
         <ul className="divide-y divide-border">

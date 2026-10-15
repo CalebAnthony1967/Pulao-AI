@@ -65,7 +65,7 @@ export default function EvaluationWorkspace() {
           className="inline-flex items-center gap-1.5 rounded-md border border-navy/25 px-3 py-2 text-sm text-navy transition-colors hover:bg-navy-soft"
         >
           <ArrowLeft className="h-4 w-4" />
-          Back to the pipeline
+          Back to evaluations
         </Link>
       }
     >
@@ -83,9 +83,9 @@ export default function EvaluationWorkspace() {
             <div>
               <div className="flex flex-wrap items-end justify-between gap-3">
                 <div>
-                  <h2 className="font-display text-2xl text-navy">Automated compliance matrix</h2>
+                  <h2 className="font-display text-2xl text-navy">Bid Compliance Summary</h2>
                   <p className="mt-1 text-sm text-muted-foreground">
-                    {bids.length} bid(s) lodged. Select a bidder row to review the flags raised against them.
+                    {bids.length} submitted bid(s). Select a bidder row to review evaluation findings and benchmarks.
                   </p>
                 </div>
                 {selected ? (

@@ -112,21 +112,20 @@ export default function SignOffPanel({ tender, evaluations, decisions, onSigned 
         <div className="flex items-center gap-2">
           <Lock className="h-5 w-5 text-navy" />
           <div>
-            <h3 className="font-semibold text-foreground">Human-in-the-Loop Sign-Off Gate</h3>
+            <h3 className="font-semibold text-foreground">Committee Sign-Off &amp; Approval</h3>
             <p className="text-xs text-muted-foreground">
-              Mandatory gate on irreversible actions (Disqualification, Rejection, Award recommendation)
+              Formal committee approval required for evaluation determinations and award recommendations
             </p>
           </div>
         </div>
         <span className="rounded-full bg-navy/10 px-2.5 py-0.5 text-xs font-semibold text-navy flex items-center gap-1">
           <ShieldCheck className="h-3.5 w-3.5" />
-          PPADA Section 79 Gate
+          PPADA Compliance Review
         </span>
       </div>
 
       <p className="text-xs leading-relaxed text-muted-foreground">
-        Under Kenya Public Procurement Regulations, AI agents are strictly advisory. No tender can be awarded or
-        disqualified without the explicit, named human countersignature of the designated Accounting Officer.
+        Under Public Procurement and Asset Disposal Regulations, automated evaluation tools provide decision support only. Final determinations and awards require official review and signature by the authorized committee.
       </p>
 
       {/* Irreversible Findings Indicator */}
@@ -134,11 +133,10 @@ export default function SignOffPanel({ tender, evaluations, decisions, onSigned 
         <div className="rounded-lg border border-caution/40 bg-caution-soft p-3 text-xs text-caution">
           <div className="flex items-center gap-2 font-semibold">
             <Lock className="h-4 w-4" />
-            IRREVERSIBLE DISQUALIFICATION GATED ({criticalFindings} critical finding(s))
+            CRITICAL COMPLIANCE FINDINGS ({criticalFindings} flag(s))
           </div>
           <p className="mt-1 text-caution/90">
-            Automated tools identified statutory non-compliance. Your signature below will legally enact this
-            disqualification finding into the permanent audit vault.
+            Verification checks identified potential statutory non-compliance. Please review the findings before confirming the evaluation report.
           </p>
         </div>
       )}
@@ -205,7 +203,7 @@ export default function SignOffPanel({ tender, evaluations, decisions, onSigned 
 
       {/* Decision Note */}
       <div className="space-y-1.5 pt-1">
-        <Label htmlFor="signoff" className="text-xs font-medium">Committee Evaluation Synthesis Note</Label>
+        <Label htmlFor="signoff" className="text-xs font-medium">Committee Evaluation Summary Note</Label>
         <Textarea
           id="signoff"
           rows={3}
@@ -226,9 +224,7 @@ export default function SignOffPanel({ tender, evaluations, decisions, onSigned 
             className="mt-0.5 h-4 w-4 rounded border-border text-navy focus:ring-navy"
           />
           <span className="text-muted-foreground select-none">
-            <strong className="text-foreground">Statutory Affirmation (PPADA 2015 s.176):</strong> I, as the named
-            approving officer, have independently inspected all MCP tool call logs, register certificates, and
-            market benchmarks. I take statutory responsibility for enacting this decision.
+            <strong className="text-foreground">Official Affirmation:</strong> I confirm that I have reviewed the submitted bids, statutory verification records, and price benchmarks, and that the evaluation findings reflect the committee's review in accordance with public procurement guidelines.
           </span>
         </label>
       </div>
@@ -244,13 +240,13 @@ export default function SignOffPanel({ tender, evaluations, decisions, onSigned 
         <div className="rounded-lg border border-compliance/40 bg-compliance-soft p-3 text-xs text-compliance space-y-1">
           <div className="flex items-center gap-2 font-semibold">
             <Stamp className="h-4 w-4" />
-            IRREVERSIBLE GATE UNLOCKED & REPORT SEALED
+            EVALUATION REPORT APPROVED &amp; RECORDED
           </div>
           <p>
             Approved by: <strong>{result.signerName}</strong> ({result.signerRole})
           </p>
           <p className="text-[11px] text-compliance/80 font-mono">
-            Signed Timestamp: {new Date(result.timestamp).toLocaleString()} | Chained to Permanent Vault
+            Signed Timestamp: {new Date(result.timestamp).toLocaleString()} | Recorded to Audit Register
           </p>
         </div>
       ) : null}
@@ -261,7 +257,7 @@ export default function SignOffPanel({ tender, evaluations, decisions, onSigned 
         onClick={sign}
       >
         {busy ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <PenLine className="mr-2 h-4 w-4" />}
-        Unlock Gate & Formally Execute Committee Sign-Off
+        Confirm &amp; Formally Sign Evaluation Report
       </Button>
     </div>
   );

@@ -54,12 +54,12 @@ const PORTALS = [
   {
     icon: Gavel,
     title: "Evaluation room",
-    body: "The committee workspace: compliance matrix, red-flag alerts, overrides and digital sign-off.",
+    body: "The committee workspace: compliance review, issue alerts, written overrides, and official sign-off.",
   },
   {
     icon: BarChart3,
     title: "Policy & analytics",
-    body: "Stress-test PPADA against real failure data and export anonymised procurement telemetry.",
+    body: "Review statutory compliance trends against market data and export anonymised reports.",
   },
   {
     icon: ShieldCheck,
@@ -96,22 +96,20 @@ export default function Landing() {
           <div className="grid gap-12 lg:grid-cols-[1.15fr_1fr] lg:items-center">
             <div>
               <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-3 py-1 text-xs font-medium tracking-wide">
-                <Timer className="h-3.5 w-3.5 text-compliance" />
-                26 days of manual evaluation, compressed into about 20 minutes
+                <ShieldCheck className="h-3.5 w-3.5 text-compliance" />
+                Autonomous Procurement Verification Agent
               </span>
 
               <h1 className="mt-6 font-display text-4xl leading-[1.05] sm:text-6xl">
-                Every public tender bid,
+                Autonomous Bid Verification
                 <br />
-                audited before the committee
+                &amp; Statutory Oversight Agent
                 <br />
-                <span className="text-compliance">even sits down.</span>
+                <span className="text-compliance">for Public Procurement.</span>
               </h1>
 
               <p className="mt-6 max-w-xl text-base leading-relaxed text-white/75">
-                Pulao-AI reads bid packets, verifies statutory standing against the state registers, benchmarks
-                every price against the published market index, and flags coordination between bidders. It never
-                awards a tender — the committee still decides, in writing, on the record.
+                An intelligent compliance agent that pre-audits tender submissions, cross-references official tax and regulatory registers, benchmarks line-item pricing, and flags irregularities before evaluation committees convene.
               </p>
 
               <div className="mt-8 flex flex-wrap gap-3">
@@ -170,9 +168,9 @@ export default function Landing() {
       </section>
 
       <section id="how" className="mx-auto max-w-7xl px-4 py-16 sm:px-6">
-        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-compliance">How the audit works</p>
+        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-compliance">Verification Workflow</p>
         <h2 className="mt-2 max-w-2xl font-display text-3xl leading-tight text-navy sm:text-4xl">
-          Five steps from a stack of PDFs to a defensible decision
+          Five steps from bid submission to committee decision
         </h2>
         <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
           {STEPS.map((step, index) => (
@@ -241,7 +239,7 @@ export default function Landing() {
           <div>
             <p className="font-display text-xl text-white">Pulao-AI</p>
             <p className="mt-1 text-sm">
-              Public Unified Tender Audit &amp; Oversight Agent · aligned to the Open Contracting Data Standard
+              Public Unified Tender Audit &amp; Oversight · aligned to the Open Contracting Data Standard
             </p>
           </div>
           <p className="text-xs">

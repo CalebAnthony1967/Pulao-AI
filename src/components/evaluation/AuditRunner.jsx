@@ -15,14 +15,14 @@ import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/utils";
 
 const LANGGRAPH_NODES = [
-  { id: "read_packets", label: "Read Packets", desc: "OCR Checksums" },
-  { id: "statutory_auditor", label: "Statutory Auditor", desc: "Custom MCP" },
-  { id: "pricing_benchmark", label: "Pricing Benchmark", desc: "Custom MCP" },
-  { id: "collusion_detector", label: "Collusion Detector", desc: "Cross-Correlation" },
-  { id: "disqualification_drafter", label: "Disqualifications", desc: "Mutating MCP" },
-  { id: "human_gate_checkpoint", label: "Human Gate", desc: "Irreversible Gate" },
-  { id: "report_compiler", label: "Report Compiler", desc: "Mutating MCP" },
-  { id: "audit_vault_commit", label: "Vault Commit", desc: "SHA-256 Chaining" },
+  { id: "read_packets", label: "Read Packets", desc: "Document Ingestion" },
+  { id: "statutory_auditor", label: "Statutory Check", desc: "Tax & Compliance" },
+  { id: "pricing_benchmark", label: "Pricing Benchmark", desc: "Market Index" },
+  { id: "collusion_detector", label: "Cross-Bidder Check", desc: "Correlation Scan" },
+  { id: "disqualification_drafter", label: "Compliance Filter", desc: "Requirement Check" },
+  { id: "human_gate_checkpoint", label: "Committee Gate", desc: "Human Review" },
+  { id: "report_compiler", label: "Report Draft", desc: "Findings Summary" },
+  { id: "audit_vault_commit", label: "Audit Log", desc: "Verified Record" },
 ];
 
 export default function AuditRunner({ tender, bids, priceIndex, onComplete }) {
@@ -109,13 +109,13 @@ export default function AuditRunner({ tender, bids, priceIndex, onComplete }) {
         <div>
           <div className="flex items-center gap-2">
             <Layers className="h-5 w-5 text-navy" />
-            <h3 className="font-semibold text-foreground">LangGraph Multi-Step Procurement Pipeline</h3>
+            <h3 className="font-semibold text-foreground">Automated Evaluation Workflow</h3>
             <span className="rounded-full bg-navy/10 px-2 py-0.5 text-xs font-semibold text-navy">
-              Open-Source Orchestration
+              Pre-Committee Verification
             </span>
           </div>
           <p className="mt-1 max-w-xl text-xs leading-relaxed text-muted-foreground">
-            Directed StateGraph with 8 nodes, Custom & Borrowed MCP tools, sovereign open-weights execution, and human gate handoff.
+            Structured verification workflow checking document completeness, statutory standing, benchmark pricing, and cross-bidder signals.
           </p>
         </div>
 
@@ -146,11 +146,11 @@ export default function AuditRunner({ tender, bids, priceIndex, onComplete }) {
         </div>
       </div>
 
-      {/* LangGraph Node Visualizer DAG */}
+      {/* Evaluation Stages */}
       <div className="rounded-lg border border-border bg-muted/20 p-3">
         <div className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground mb-2 flex items-center justify-between">
-          <span>LangGraph State Machine (8 Nodes)</span>
-          <span className="font-mono text-[10px] text-navy">@langchain/langgraph</span>
+          <span>Evaluation Stages (8 Steps)</span>
+          <span className="text-[11px] font-medium text-navy">Standard Compliance Sequence</span>
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2">
@@ -192,8 +192,8 @@ export default function AuditRunner({ tender, bids, priceIndex, onComplete }) {
 
       {/* Action Trigger */}
       <div className="flex flex-wrap items-center justify-between gap-3 pt-1">
-        <p className="text-xs text-muted-foreground font-mono">
-          Ready to audit {bids.length} bid(s) against statutory registers & market benchmarks.
+        <p className="text-xs text-muted-foreground">
+          Ready to verify {bids.length} submitted bid(s) against statutory registers and pricing benchmarks.
         </p>
 
         <Button
@@ -202,7 +202,7 @@ export default function AuditRunner({ tender, bids, priceIndex, onComplete }) {
           className="bg-navy text-white hover:bg-navy/90 text-xs py-2 px-4"
         >
           {running ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Play className="mr-2 h-4 w-4" />}
-          {running ? "Executing LangGraph DAG..." : "Execute LangGraph Multi-Step Audit"}
+          {running ? "Running evaluation workflow..." : "Run Evaluation Workflow"}
         </Button>
       </div>
 
@@ -241,7 +241,7 @@ export default function AuditRunner({ tender, bids, priceIndex, onComplete }) {
         <div className="flex items-center gap-2 rounded-lg border border-compliance/30 bg-compliance-soft p-3 text-xs text-compliance">
           <Sparkles className="h-4 w-4 shrink-0" />
           <span>
-            LangGraph pipeline finished. All Custom & Borrowed MCP tool executions logged in the inspector below.
+            Evaluation workflow completed. Verification checks and findings are recorded below for committee review.
           </span>
         </div>
       )}

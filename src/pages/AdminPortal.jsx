@@ -38,9 +38,9 @@ export default function AdminPortal() {
 
   return (
     <PortalShell
-      eyebrow="System control"
-      title="Administration and guardrails"
-      description="Tool health, retention, responsible-AI controls and account roles. Every change made here is itself written into the audit vault."
+      eyebrow="System administration"
+      title="System Administration &amp; Settings"
+      description="Service status, data retention settings, role permissions, and system activity logs."
     >
       <RoleGate roles={["admin", "superadmin"]}>
         {!data ? (
@@ -57,11 +57,10 @@ export default function AdminPortal() {
                 <div className="rounded-xl border border-compliance/30 bg-compliance-soft p-5">
                   <div className="flex items-center gap-2 text-compliance">
                     <ShieldCheck className="h-4 w-4" />
-                    <p className="text-sm font-semibold">Hard rule: no automatic awards</p>
+                    <p className="text-sm font-semibold">Governance Policy: No Automatic Awards</p>
                   </div>
                   <p className="mt-2 text-sm leading-relaxed text-compliance/90">
-                    Pulao-AI produces decision support only. A tender can only be awarded through a signed
-                    committee decision recorded in the immutable vault.
+                    Automated checks provide decision support only. Tenders can only be awarded through an official signed committee decision recorded in the audit register.
                   </p>
                 </div>
               </div>

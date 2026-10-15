@@ -6,9 +6,9 @@ import VaultTable from "@/components/vault/VaultTable";
 export default function AuditVault() {
   return (
     <PortalShell
-      eyebrow="Super admin vault"
-      title="Immutable audit vault"
-      description="Every tool invocation, audit run, committee decision and override — chained together with SHA-256 hashes and masked for personal data. Nothing here can be edited or deleted."
+      eyebrow="Audit & Security"
+      title="Audit Trail Register"
+      description="Every verification check, committee review, and formal decision is cryptographically logged with timestamps and verification checksums. Records are permanent and append-only."
     >
       <RoleGate roles={["admin", "superadmin"]}>
         <VaultTable />

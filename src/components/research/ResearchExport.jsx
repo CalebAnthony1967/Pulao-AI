@@ -39,11 +39,11 @@ export default function ResearchExport() {
       const rows = data || [];
       const stamp = new Date().toISOString().slice(0, 10);
 
-      if (format === "csv") download(`pulao-telemetry-${stamp}.csv`, toCsv(rows), "text/csv");
-      else download(`pulao-telemetry-${stamp}.json`, JSON.stringify(rows, null, 2), "application/json");
+      if (format === "csv") download(`pulao-data-${stamp}.csv`, toCsv(rows), "text/csv");
+      else download(`pulao-data-${stamp}.json`, JSON.stringify(rows, null, 2), "application/json");
 
       await recordAudit({
-        action: "Anonymised telemetry exported",
+        action: "Anonymised procurement data exported",
         input: { format },
         output: { records: rows.length },
       });
@@ -57,9 +57,9 @@ export default function ResearchExport() {
 
   return (
     <div className="rounded-xl border border-border bg-card p-5 shadow-sm">
-      <h3 className="font-semibold text-foreground">Research data exporter</h3>
+      <h3 className="font-semibold text-foreground">Export Research Data</h3>
       <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
-        Downloads bidder-free procurement telemetry — no company names, registration numbers or personal details.
+        Downloads anonymised procurement dataset — company names, registration numbers, and personal details are stripped.
         Suitable for policy briefs and academic review.
       </p>
       <div className="mt-4 flex flex-wrap gap-2">

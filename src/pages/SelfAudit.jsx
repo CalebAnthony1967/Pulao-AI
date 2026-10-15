@@ -87,7 +87,7 @@ export default function SelfAudit() {
     <PortalShell
       eyebrow="Supplier desk"
       title="Pre-submission self-audit"
-      description="Check a draft bid before you lodge it. Nothing is submitted here — this is a private dry run against the same registers and price index the committee will use."
+      description="Verify a draft bid before submission. This preliminary check tests statutory requirements and market price benchmarks confidentially."
     >
       <RoleGate roles={["supplier", "admin", "superadmin"]}>
         <div className="grid gap-6 lg:grid-cols-[1.2fr_1fr] lg:items-start">
@@ -127,7 +127,7 @@ export default function SelfAudit() {
 
             <Button onClick={run} disabled={running} className="bg-navy text-white hover:bg-navy/90">
               {running ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <ShieldQuestion className="mr-2 h-4 w-4" />}
-              Run my self-audit
+              Run Preliminary Verification
             </Button>
           </div>
 

@@ -10,8 +10,8 @@ import { Switch } from "@/components/ui/switch";
 const GUARDRAILS = [
   { key: "citation_enforcement", label: "Hide unsourced flags", hint: "Any finding without a verified page reference is withheld from the committee." },
   { key: "pii_masking", label: "Mask personal data in the audit trail", hint: "Identity numbers, phone numbers and tax references are redacted before they are stored." },
-  { key: "prompt_injection_shield", label: "Prompt-injection shield", hint: "Text taken from bid documents is treated as data, never as instructions." },
-  { key: "auto_award", label: "Allow automatic award", hint: "Locked off. Pulao-AI can never award a tender without a human signature." },
+  { key: "prompt_injection_shield", label: "Document data sanitization", hint: "Uploaded documents are parsed as raw structured data to prevent script or instruction injection." },
+  { key: "auto_award", label: "Allow automatic award", hint: "Permanently disabled. System requires manual committee approval for any tender award." },
 ];
 
 export default function SettingsPanel() {
@@ -79,9 +79,9 @@ export default function SettingsPanel() {
       </div>
 
       <div className="rounded-xl border border-border bg-card p-5 shadow-sm">
-        <h3 className="font-semibold text-foreground">Responsible AI guardrails</h3>
+        <h3 className="font-semibold text-foreground">Governance &amp; Compliance Controls</h3>
         <p className="mt-1 text-sm text-muted-foreground">
-          These controls decide what the audit is allowed to show and store.
+          Policy enforcement rules applied during evaluation and record keeping.
         </p>
         <ul className="mt-4 space-y-4">
           {GUARDRAILS.map((guard) => {

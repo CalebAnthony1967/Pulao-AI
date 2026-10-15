@@ -33,7 +33,7 @@ export default function TenderDetail() {
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6">
         <Link to="/" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-navy">
           <ArrowLeft className="h-4 w-4" />
-          Back to the register
+          Back to open tenders
         </Link>
 
         {tender === undefined ? (
@@ -89,11 +89,11 @@ export default function TenderDetail() {
                 )}
 
                 <div className="rounded-xl border border-border bg-navy-soft p-5 text-sm leading-relaxed text-muted-foreground">
-                  <p className="font-medium text-navy">What happens after you lodge</p>
+                  <p className="font-medium text-navy">Evaluation Process Overview</p>
                   <p className="mt-2">
-                    The packet is read automatically, statutory standing is verified against the state registers,
-                    every line item is benchmarked, and competing bids are scanned for coordination. The
-                    evaluation committee then reviews the findings and signs the report off by hand.
+                    Submitted bids undergo verification of statutory documentation against official registers,
+                    itemized pricing is compared against published benchmarks, and the evaluation committee
+                    reviews all findings to make formal determinations.
                   </p>
                 </div>
               </div>

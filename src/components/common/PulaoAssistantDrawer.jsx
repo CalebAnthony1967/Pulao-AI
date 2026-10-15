@@ -55,7 +55,7 @@ Answer in plain, professional layman's language suitable for a governance office
           model: "gemini-1.5-flash",
           contents: contextPrompt,
         });
-        botReply = response.text || "I have analyzed the procurement records. All evaluations adhere to statutory rules with immutable audit logging.";
+        botReply = response.text || "I have reviewed the procurement records. All evaluations adhere to statutory requirements with recorded audit logs.";
       } catch {
         // Intelligent fallback
         if (userText.toLowerCase().includes("flagged") || userText.toLowerCase().includes("why")) {
@@ -63,13 +63,13 @@ Answer in plain, professional layman's language suitable for a governance office
         } else if (userText.toLowerCase().includes("price") || userText.toLowerCase().includes("drift")) {
           botReply = "Price drift is monitored item-by-item against the published OCDS market price index. Items exceeding allowed deviation margins are flagged with critical audit severity.";
         } else {
-          botReply = `Based on current OCDS telemetry records for your role (${role}), all oversight mechanisms are operating within expected statutory parameters.`;
+          botReply = `Based on current procurement records for your role (${role}), evaluations and checks are operating within standard parameters.`;
         }
       }
 
       setMessages((prev) => [...prev, { sender: "bot", text: botReply }]);
     } catch {
-      setMessages((prev) => [...prev, { sender: "bot", text: "I encountered an error retrieving live telemetry. Please try again." }]);
+      setMessages((prev) => [...prev, { sender: "bot", text: "I encountered an issue retrieving records. Please try again." }]);
     } finally {
       setLoading(false);
     }
@@ -95,8 +95,8 @@ Answer in plain, professional layman's language suitable for a governance office
             <div className="flex items-center gap-2">
               <Bot className="h-5 w-5 text-compliance" />
               <div>
-                <h4 className="font-semibold text-sm">Pulao-AI Assistant</h4>
-                <p className="text-[11px] text-white/70">Role-aware live data explainer</p>
+                <h4 className="font-semibold text-sm">Pulao Assistant</h4>
+                <p className="text-[11px] text-white/70">Procurement questions &amp; record explainer</p>
               </div>
             </div>
             <button onClick={() => setOpen(false)} className="text-white/70 hover:text-white">
@@ -131,7 +131,7 @@ Answer in plain, professional layman's language suitable for a governance office
             {loading && (
               <div className="flex gap-3 items-center text-xs text-muted-foreground">
                 <Loader2 className="h-4 w-4 animate-spin text-compliance" />
-                Querying live telemetry & vault records...
+                Querying live records &amp; audit log...
               </div>
             )}
           </ScrollArea>

@@ -89,9 +89,9 @@ export default function VaultTable() {
       <div className="rounded-xl border border-border bg-card shadow-sm">
         <div className="flex items-center justify-between border-b border-border px-5 py-4">
           <div>
-            <h3 className="font-semibold text-foreground">Immutable audit vault</h3>
+            <h3 className="font-semibold text-foreground">System Audit Trail</h3>
             <p className="mt-1 text-sm text-muted-foreground">
-              Append-only. Every entry is hashed together with the entry before it.
+              Append-only activity log. Every transaction and check is cryptographically verified.
             </p>
           </div>
           <StatusBadge tone="navy">{stats.total} entries</StatusBadge>
@@ -100,14 +100,14 @@ export default function VaultTable() {
         {loading ? (
           <div className="flex items-center gap-2 p-6 text-sm text-muted-foreground">
             <Loader2 className="h-4 w-4 animate-spin" />
-            Reading the vault
+            Loading audit entries...
           </div>
         ) : logs.length === 0 ? (
           <div className="p-5">
             <EmptyState
               icon={ShieldCheck}
               title="No audit entries match"
-              description="Try a different search term, or run an audit to generate entries."
+              description="Try a different search term, or perform an action to generate log entries."
             />
           </div>
         ) : (

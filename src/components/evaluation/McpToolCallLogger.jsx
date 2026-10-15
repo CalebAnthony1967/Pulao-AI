@@ -42,29 +42,29 @@ export default function McpToolCallLogger() {
         <div>
           <div className="flex items-center gap-2">
             <Terminal className="h-5 w-5 text-navy" />
-            <h3 className="font-semibold text-foreground">Model Context Protocol (MCP) Tool Audit Log</h3>
+            <h3 className="font-semibold text-foreground">Verification &amp; Activity Audit Log</h3>
             <span className="rounded-full bg-navy/10 px-2 py-0.5 text-xs font-semibold text-navy">
-              Live Inspector
+              Audit Trail
             </span>
           </div>
           <p className="mt-1 text-xs text-muted-foreground">
-            Auditing all tool executions across Custom MCP (4 tools) and Borrowed MCP servers with cryptographic hashes.
+            Record of system verification checks, register lookups, and audit events with verified timestamps and checksums.
           </p>
         </div>
 
-        {/* Server Badges */}
+        {/* Service Badges */}
         <div className="flex flex-wrap items-center gap-2">
           <div className="rounded-md border border-border bg-background px-2.5 py-1 text-xs font-mono text-muted-foreground flex items-center gap-1.5">
             <Cpu className="h-3.5 w-3.5 text-navy" />
-            <span>Custom: {customCalls} calls</span>
+            <span>Registry Checks: {customCalls}</span>
           </div>
           <div className="rounded-md border border-border bg-background px-2.5 py-1 text-xs font-mono text-muted-foreground flex items-center gap-1.5">
             <FolderGit2 className="h-3.5 w-3.5 text-purple-600" />
-            <span>Borrowed: {borrowedCalls} calls</span>
+            <span>Document Operations: {borrowedCalls}</span>
           </div>
           <div className="rounded-md border border-caution/30 bg-caution-soft px-2.5 py-1 text-xs font-mono text-caution flex items-center gap-1.5">
             <Lock className="h-3.5 w-3.5" />
-            <span>Gated: {gatedCalls}</span>
+            <span>Committee Reviews: {gatedCalls}</span>
           </div>
         </div>
       </div>
@@ -77,7 +77,7 @@ export default function McpToolCallLogger() {
           onClick={() => setActiveFilter("all")}
           className={activeFilter === "all" ? "bg-navy text-white text-xs" : "text-xs"}
         >
-          All Executions ({history.length})
+          All Activities ({history.length})
         </Button>
         <Button
           size="sm"
@@ -85,7 +85,7 @@ export default function McpToolCallLogger() {
           onClick={() => setActiveFilter("custom")}
           className={activeFilter === "custom" ? "bg-navy text-white text-xs" : "text-xs"}
         >
-          Custom MCP: pulao-procurement-mcp ({customCalls})
+          Registry &amp; Compliance Checks ({customCalls})
         </Button>
         <Button
           size="sm"
@@ -93,7 +93,7 @@ export default function McpToolCallLogger() {
           onClick={() => setActiveFilter("borrowed")}
           className={activeFilter === "borrowed" ? "bg-purple-700 text-white text-xs" : "text-xs"}
         >
-          Borrowed MCP: @modelcontextprotocol/server-filesystem ({borrowedCalls})
+          Document Storage Checks ({borrowedCalls})
         </Button>
         <Button
           size="sm"
@@ -101,7 +101,7 @@ export default function McpToolCallLogger() {
           onClick={() => setActiveFilter("gated")}
           className={activeFilter === "gated" ? "bg-caution text-white text-xs" : "text-xs"}
         >
-          Irreversible Action Gates ({gatedCalls})
+          Committee Sign-Off Required ({gatedCalls})
         </Button>
       </div>
 
@@ -109,9 +109,9 @@ export default function McpToolCallLogger() {
       {filtered.length === 0 ? (
         <div className="rounded-lg border border-dashed border-border bg-background/50 p-6 text-center">
           <Terminal className="mx-auto h-8 w-8 text-muted-foreground/60" />
-          <p className="mt-2 text-sm font-medium text-foreground">No tool calls recorded in this view yet</p>
+          <p className="mt-2 text-sm font-medium text-foreground">No activity recorded in this view yet</p>
           <p className="mt-1 text-xs text-muted-foreground">
-            Lodge a bid or click "Run LangGraph Multi-Step Audit" to trigger MCP tool execution.
+            Submit a bid or run the evaluation workflow to generate activity logs.
           </p>
         </div>
       ) : (
@@ -150,13 +150,13 @@ export default function McpToolCallLogger() {
                     >
                       {item.tool}
                     </span>
-                    <span className="rounded bg-muted px-1.5 py-0.5 text-[10px] text-muted-foreground">
-                      {isCustom ? "pulao-procurement-mcp" : "official-filesystem-mcp"}
+                    <span className="rounded bg-muted px-1.5 py-0.5 text-[10px] text-muted-foreground font-sans">
+                      {isCustom ? "Procurement Service" : "Document Service"}
                     </span>
                     {isGated && (
-                      <span className="flex items-center gap-1 rounded bg-caution text-white px-1.5 py-0.5 text-[10px] font-bold">
+                      <span className="flex items-center gap-1 rounded bg-caution text-white px-1.5 py-0.5 text-[10px] font-sans font-medium">
                         <Lock className="h-2.5 w-2.5" />
-                        GATED IRREVERSIBLE
+                        COMMITTEE SIGN-OFF REQUIRED
                       </span>
                     )}
                   </div>
@@ -186,11 +186,10 @@ export default function McpToolCallLogger() {
                       <div className="rounded border border-caution/40 bg-caution-soft p-2.5 text-xs text-caution">
                         <div className="font-semibold flex items-center gap-1.5">
                           <Lock className="h-3.5 w-3.5" />
-                          HUMAN-IN-THE-LOOP SAFETY GATE ENFORCED
+                          COMMITTEE AUTHORIZATION REQUIRED
                         </div>
                         <p className="mt-1 font-sans text-xs text-caution/90">
-                          This tool call generated an enforceable statutory disqualification notice. Under Kenya PPADA 2015 s.79,
-                          it is gated and cannot be enacted until signed off by the named Evaluation Committee Chairperson.
+                          This check flagged an item for committee review. Under PPADA regulations, any formal determination must be confirmed and signed by the Evaluation Committee Chairperson.
                         </p>
                       </div>
                     )}
