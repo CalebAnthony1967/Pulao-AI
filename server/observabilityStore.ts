@@ -1,7 +1,9 @@
 import fs from "fs/promises";
 import path from "path";
 
-const STORE_PATH = path.resolve(process.cwd(), "server/data/observability_store.json");
+const STORE_PATH = process.env.VERCEL
+  ? path.resolve("/tmp", "observability_store.json")
+  : path.resolve(process.cwd(), "server/data/observability_store.json");
 
 export interface AgentRunRecord {
   run_id: string;
@@ -94,6 +96,7 @@ const DEFAULT_STORE: StoreShape = {
   lastEvalReport: null,
 };
 
+let memoryStore: StoreShape = { ...DEFAULT_STORE };
 let writeQueue: Promise<void> = Promise.resolve();
 
 async function readStore(): Promise<StoreShape> {
@@ -107,14 +110,19 @@ async function readStore(): Promise<StoreShape> {
       lastEvalReport: parsed.lastEvalReport || null,
     };
   } catch {
-    return { ...DEFAULT_STORE };
+    return memoryStore;
   }
 }
 
 async function writeStore(next: StoreShape): Promise<void> {
+  memoryStore = next;
   writeQueue = writeQueue.then(async () => {
-    await fs.mkdir(path.dirname(STORE_PATH), { recursive: true });
-    await fs.writeFile(STORE_PATH, JSON.stringify(next, null, 2), "utf8");
+    try {
+      await fs.mkdir(path.dirname(STORE_PATH), { recursive: true });
+      await fs.writeFile(STORE_PATH, JSON.stringify(next, null, 2), "utf8");
+    } catch {
+      // Ignore filesystem write errors in serverless read-only mode
+    }
   });
   await writeQueue;
 }
@@ -163,7 +171,6 @@ export async function appendAgentRun(run: AgentRunRecord): Promise<void> {
     store.runs.unshift(normalized);
   }
 
-  // Keep live_ui runs isolated so batch eval runs never evict live workspace history
   const liveRuns = store.runs.filter((r) => (r.source || "eval") === "live_ui").slice(0, 60);
   const evalRuns = store.runs.filter((r) => r.source === "eval").slice(0, 60);
   store.runs = [...liveRuns, ...evalRuns].sort(
@@ -205,7 +212,6 @@ export async function appendMcpTrace(trace: McpTraceRecord): Promise<void> {
     store.traces.unshift(normalized);
   }
 
-  // Keep up to 200 live_ui traces and 150 eval traces independently
   const liveTraces = store.traces.filter((t) => t.source === "live_ui").slice(0, 200);
   const evalTraces = store.traces.filter((t) => t.source === "eval").slice(0, 150);
   store.traces = [...liveTraces, ...evalTraces].sort(
