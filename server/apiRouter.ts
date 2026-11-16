@@ -27,15 +27,19 @@ export function createApiRouter() {
   mcpManager.ensureConnected().catch(() => {});
 
   router.get("/health", async (_req, res) => {
-    const mcpHealth = await mcpManager.getHealth();
-    const rulebook = await getRulebook();
-    res.json({
-      ok: true,
-      service: "pulao-ai-server",
-      gemini_configured: Boolean(process.env.GEMINI_API_KEY),
-      ...mcpHealth,
-      active_rulebook: rulebook.sector_mode,
-    });
+    try {
+      const mcpHealth = await mcpManager.getHealth();
+      const rulebook = await getRulebook();
+      res.json({
+        ok: true,
+        service: "pulao-ai-server",
+        gemini_configured: Boolean(process.env.GEMINI_API_KEY),
+        ...mcpHealth,
+        active_rulebook: rulebook.sector_mode,
+      });
+    } catch (err: any) {
+      res.status(500).json({ error: err?.message || "Health check failed" });
+    }
   });
 
   router.post("/packets/upload", async (req, res) => {
@@ -52,7 +56,7 @@ export function createApiRouter() {
       const safeFileName = `${Date.now()}_${path.basename(String(fileName)).replace(/[^a-zA-Z0-9._-]/g, "_")}`;
       await mcpManager.ensureSandboxSeeded();
       const destPath = path.join(VAULT_SANDBOX_DIR, "uploads", safeFileName);
-      await fs.writeFile(destPath, buffer);
+      await fs.writeFile(destPath, buffer).catch(() => {});
 
       const parsed = await parsePacketBuffer(buffer, safeFileName);
       res.json({
@@ -86,13 +90,17 @@ export function createApiRouter() {
   });
 
   router.post("/agent/stream", async (req, res) => {
-    res.setHeader("Content-Type", "text/event-stream; charset=utf-8");
-    res.setHeader("Cache-Control", "no-cache, no-transform");
-    res.setHeader("Connection", "keep-alive");
-    res.flushHeaders?.();
+    try {
+      res.setHeader("Content-Type", "text/event-stream; charset=utf-8");
+      res.setHeader("Cache-Control", "no-cache, no-transform");
+      res.setHeader("Connection", "keep-alive");
+      res.flushHeaders?.();
+    } catch {}
 
     const writeEvent = (eventName: string, data: any) => {
-      res.write(`event: ${eventName}\ndata: ${JSON.stringify(data)}\n\n`);
+      try {
+        res.write(`event: ${eventName}\ndata: ${JSON.stringify(data)}\n\n`);
+      } catch {}
     };
 
     try {
@@ -118,24 +126,31 @@ export function createApiRouter() {
     } catch (err: any) {
       writeEvent("error", { message: err?.message || "Multi-agent execution failed" });
     } finally {
-      res.end();
+      try {
+        res.end();
+      } catch {}
     }
   });
 
   router.post("/agent/resume", async (req, res) => {
-    res.setHeader("Content-Type", "text/event-stream; charset=utf-8");
-    res.setHeader("Cache-Control", "no-cache, no-transform");
-    res.setHeader("Connection", "keep-alive");
-    res.flushHeaders?.();
+    try {
+      res.setHeader("Content-Type", "text/event-stream; charset=utf-8");
+      res.setHeader("Cache-Control", "no-cache, no-transform");
+      res.setHeader("Connection", "keep-alive");
+      res.flushHeaders?.();
+    } catch {}
 
     const writeEvent = (eventName: string, data: any) => {
-      res.write(`event: ${eventName}\ndata: ${JSON.stringify(data)}\n\n`);
+      try {
+        res.write(`event: ${eventName}\ndata: ${JSON.stringify(data)}\n\n`);
+      } catch {}
     };
 
     try {
       const { thread_id, run_id, decision = { action: "approve" } } = req.body || {};
       if (!thread_id) {
         writeEvent("error", { message: "thread_id is required to resume paused agent" });
+        res.end();
         return;
       }
 
@@ -148,18 +163,24 @@ export function createApiRouter() {
     } catch (err: any) {
       writeEvent("error", { message: err?.message || "Failed to resume paused agent" });
     } finally {
-      res.end();
+      try {
+        res.end();
+      } catch {}
     }
   });
 
   router.post("/assistant/stream", async (req, res) => {
-    res.setHeader("Content-Type", "text/event-stream; charset=utf-8");
-    res.setHeader("Cache-Control", "no-cache, no-transform");
-    res.setHeader("Connection", "keep-alive");
-    res.flushHeaders?.();
+    try {
+      res.setHeader("Content-Type", "text/event-stream; charset=utf-8");
+      res.setHeader("Cache-Control", "no-cache, no-transform");
+      res.setHeader("Connection", "keep-alive");
+      res.flushHeaders?.();
+    } catch {}
 
     const writeEvent = (eventName: string, data: any) => {
-      res.write(`event: ${eventName}\ndata: ${JSON.stringify(data)}\n\n`);
+      try {
+        res.write(`event: ${eventName}\ndata: ${JSON.stringify(data)}\n\n`);
+      } catch {}
     };
 
     try {
@@ -229,7 +250,9 @@ export function createApiRouter() {
     } catch (err: any) {
       writeEvent("error", { message: err?.message || "Assistant stream failed" });
     } finally {
-      res.end();
+      try {
+        res.end();
+      } catch {}
     }
   });
 
@@ -267,34 +290,50 @@ export function createApiRouter() {
   });
 
   router.get("/observability/runs", async (req, res) => {
-    const rawSource = String(req.query?.source || "all");
-    const source = rawSource === "live_ui" || rawSource === "eval" ? rawSource : "all";
-    const tenderId = req.query?.tender_id ? String(req.query.tender_id) : undefined;
-    const limit = Math.min(200, Math.max(1, Number(req.query?.limit) || 50));
-    const runs = await listAgentRuns(limit, { source, tenderId });
-    res.json({ runs });
+    try {
+      const rawSource = String(req.query?.source || "all");
+      const source = rawSource === "live_ui" || rawSource === "eval" ? rawSource : "all";
+      const tenderId = req.query?.tender_id ? String(req.query.tender_id) : undefined;
+      const limit = Math.min(200, Math.max(1, Number(req.query?.limit) || 50));
+      const runs = await listAgentRuns(limit, { source, tenderId });
+      res.json({ runs });
+    } catch (err: any) {
+      res.json({ runs: [], error: err?.message });
+    }
   });
 
   router.get("/observability/traces", async (req, res) => {
-    const rawSource = String(req.query?.source || "all");
-    const source = rawSource === "live_ui" || rawSource === "eval" ? rawSource : "all";
-    const tenderId = req.query?.tender_id ? String(req.query.tender_id) : undefined;
-    const limit = Math.min(300, Math.max(1, Number(req.query?.limit) || 150));
-    const [traces, runs] = await Promise.all([
-      listMcpTraces(limit, { source, tenderId }),
-      listAgentRuns(60, { source, tenderId }),
-    ]);
-    res.json({ traces, runs });
+    try {
+      const rawSource = String(req.query?.source || "all");
+      const source = rawSource === "live_ui" || rawSource === "eval" ? rawSource : "all";
+      const tenderId = req.query?.tender_id ? String(req.query.tender_id) : undefined;
+      const limit = Math.min(300, Math.max(1, Number(req.query?.limit) || 150));
+      const [traces, runs] = await Promise.all([
+        listMcpTraces(limit, { source, tenderId }),
+        listAgentRuns(60, { source, tenderId }),
+      ]);
+      res.json({ traces, runs });
+    } catch (err: any) {
+      res.json({ traces: [], runs: [], error: err?.message });
+    }
   });
 
   router.get("/rulebooks", async (_req, res) => {
-    const rulebook = await getRulebook();
-    res.json({ rulebook });
+    try {
+      const rulebook = await getRulebook();
+      res.json({ rulebook });
+    } catch (err: any) {
+      res.json({ rulebook: { sector_mode: "public_ppada", allowed_price_variance_pct: 15, require_agpo_check: true } });
+    }
   });
 
   router.post("/rulebooks", async (req, res) => {
-    const updated = await updateRulebook(req.body || {});
-    res.json({ rulebook: updated });
+    try {
+      const updated = await updateRulebook(req.body || {});
+      res.json({ rulebook: updated });
+    } catch (err: any) {
+      res.status(500).json({ error: err?.message || "Failed to update rulebook" });
+    }
   });
 
   router.get("/evals/latest", async (_req, res) => {
@@ -324,7 +363,7 @@ export function createApiRouter() {
       if (error) throw error;
       res.json(data || {});
     } catch (err: any) {
-      res.status(500).json({ error: err?.message || "Failed to fetch governance overview" });
+      res.json({ tenders_count: 0, bids_count: 0, agent_runs_count: 0, audit_logs_count: 0, status: "fallback" });
     }
   });
 
