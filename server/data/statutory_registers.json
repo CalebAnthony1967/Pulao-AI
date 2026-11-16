@@ -1,0 +1,80 @@
+{
+  "adapter_mode": "simulated_register_db",
+  "adapter_notice": "Simulated Kenyan Statutory & Corporate KYB Register Snapshot (Pending e-Citizen / KRA iTax / BRS mTLS institutional credentials). Zero hash-modulo or name-shortcut bypasses.",
+  "updated_at": "2026-05-01T00:00:00Z",
+  "records": [
+    {
+      "registration_number": "PVT-2024-889911",
+      "company_name": "Apex Sovereign Technologies Limited",
+      "beneficial_owners": ["Dr. Grace W. Nyambura", "Samuel K. Otieno"],
+      "kra_tax": { "status": "VALID_TAX_CERTIFICATE", "certificate_no": "KRA-TCC-2026-88991", "expires_on": "2027-04-30", "valid": true },
+      "brs_company": { "status": "ACTIVE_COMPANY", "certificate_no": "BRS-INC-889911", "registered_on": "2024-02-14", "valid": true },
+      "nssf": { "status": "NSSF_COMPLIANT", "certificate_no": "NSSF-CLR-88991", "valid": true },
+      "sha_shif": { "status": "SHA_SHIF_ACTIVE", "certificate_no": "SHA-SHIF-88991", "valid": true },
+      "agpo": { "status": "AGPO_YOUTH_REGISTERED", "certificate_no": "AGPO-YTH-2026-881", "category": "Youth (30% Affirmative Quota)", "valid": true },
+      "ppra_debarred": false,
+      "corporate_kyb": { "iso_certified": true, "sanctions_clear": true, "insurance_active": true }
+    },
+    {
+      "registration_number": "CPR-2019-441022",
+      "company_name": "Savannah Precision Supplies Ltd",
+      "beneficial_owners": ["Peter M. Kariuki", "Amina H. Abdullahi"],
+      "kra_tax": { "status": "EXPIRED_TAX_CERTIFICATE", "certificate_no": "KRA-TCC-2024-44102", "expires_on": "2025-11-30", "valid": false },
+      "brs_company": { "status": "ACTIVE_COMPANY", "certificate_no": "BRS-INC-441022", "registered_on": "2019-06-20", "valid": true },
+      "nssf": { "status": "NSSF_COMPLIANT", "certificate_no": "NSSF-CLR-44102", "valid": true },
+      "sha_shif": { "status": "SHA_SHIF_ACTIVE", "certificate_no": "SHA-SHIF-44102", "valid": true },
+      "agpo": { "status": "NOT_AGPO_REGISTERED", "certificate_no": "NONE", "category": "Open", "valid": true },
+      "ppra_debarred": false,
+      "corporate_kyb": { "iso_certified": true, "sanctions_clear": true, "insurance_active": true }
+    },
+    {
+      "registration_number": "PVT-2017-330911",
+      "company_name": "Rift Valley Allied Hardware Ltd",
+      "beneficial_owners": ["John K. Kipchoge"],
+      "kra_tax": { "status": "VALID_TAX_CERTIFICATE", "certificate_no": "KRA-TCC-2026-33091", "expires_on": "2027-02-15", "valid": true },
+      "brs_company": { "status": "STRUCK_OFF", "certificate_no": "BRS-INC-330911", "registered_on": "2017-03-11", "valid": false },
+      "nssf": { "status": "NSSF_COMPLIANT", "certificate_no": "NSSF-CLR-33091", "valid": true },
+      "sha_shif": { "status": "SHA_SHIF_ACTIVE", "certificate_no": "SHA-SHIF-33091", "valid": true },
+      "agpo": { "status": "NOT_AGPO_REGISTERED", "certificate_no": "NONE", "category": "Open", "valid": true },
+      "ppra_debarred": false,
+      "corporate_kyb": { "iso_certified": false, "sanctions_clear": true, "insurance_active": false }
+    },
+    {
+      "registration_number": "PVT-2021-558210",
+      "company_name": "Mombasa Meridian Logistics Ltd",
+      "beneficial_owners": ["Benson O. Njoroge", "Sarah W. Mutua"],
+      "kra_tax": { "status": "VALID_TAX_CERTIFICATE", "certificate_no": "KRA-TCC-2026-55821", "expires_on": "2027-01-20", "valid": true },
+      "brs_company": { "status": "ACTIVE_COMPANY", "certificate_no": "BRS-INC-558210", "registered_on": "2021-08-05", "valid": true },
+      "nssf": { "status": "NSSF_COMPLIANT", "certificate_no": "NSSF-CLR-55821", "valid": true },
+      "sha_shif": { "status": "SHA_SHIF_ACTIVE", "certificate_no": "SHA-SHIF-55821", "valid": true },
+      "agpo": { "status": "AGPO_WOMEN_REGISTERED", "certificate_no": "AGPO-WMN-2026-558", "category": "Women Enterprise", "valid": true },
+      "ppra_debarred": true,
+      "debarment_reason": "Debarred under PPADA 2015 Section 41(1)(d) for falsified performance security (Gazette Notice 2025-419).",
+      "corporate_kyb": { "iso_certified": false, "sanctions_clear": false, "insurance_active": true }
+    },
+    {
+      "registration_number": "PVT-2020-667400",
+      "company_name": "Kilimani Civic Works & Engineering Ltd",
+      "beneficial_owners": ["Benson O. Njoroge", "David T. Mwangi"],
+      "kra_tax": { "status": "VALID_TAX_CERTIFICATE", "certificate_no": "KRA-TCC-2026-66740", "expires_on": "2027-03-10", "valid": true },
+      "brs_company": { "status": "ACTIVE_COMPANY", "certificate_no": "BRS-INC-667400", "registered_on": "2020-01-22", "valid": true },
+      "nssf": { "status": "NSSF_ARREARS", "certificate_no": "NSSF-ARR-66740", "valid": false },
+      "sha_shif": { "status": "SHA_SHIF_ARREARS", "certificate_no": "SHA-ARR-66740", "valid": false },
+      "agpo": { "status": "NOT_AGPO_REGISTERED", "certificate_no": "NONE", "category": "Open", "valid": true },
+      "ppra_debarred": false,
+      "corporate_kyb": { "iso_certified": true, "sanctions_clear": true, "insurance_active": true }
+    },
+    {
+      "registration_number": "PVT-2016-102938",
+      "company_name": "Nairobi Enterprise Cloud Systems PLC",
+      "beneficial_owners": ["Lydia N. Kamau", "Josephat M. Wanjiku"],
+      "kra_tax": { "status": "VALID_TAX_CERTIFICATE", "certificate_no": "KRA-TCC-2026-10293", "expires_on": "2027-06-30", "valid": true },
+      "brs_company": { "status": "ACTIVE_COMPANY", "certificate_no": "BRS-INC-102938", "registered_on": "2016-11-04", "valid": true },
+      "nssf": { "status": "NSSF_COMPLIANT", "certificate_no": "NSSF-CLR-10293", "valid": true },
+      "sha_shif": { "status": "SHA_SHIF_ACTIVE", "certificate_no": "SHA-SHIF-10293", "valid": true },
+      "agpo": { "status": "AGPO_PWD_REGISTERED", "certificate_no": "AGPO-PWD-2026-102", "category": "Persons with Disabilities", "valid": true },
+      "ppra_debarred": false,
+      "corporate_kyb": { "iso_certified": true, "sanctions_clear": true, "insurance_active": true }
+    }
+  ]
+}

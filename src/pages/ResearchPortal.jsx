@@ -1,0 +1,117 @@
+import React, { useEffect, useState } from "react";
+import { BarChart3, RefreshCw } from "lucide-react";
+import { supabase } from "@/lib/supabase";
+import StatCard from "@/components/common/StatCard";
+import PortalShell from "@/components/layout/PortalShell";
+import RoleGate from "@/components/common/RoleGate";
+import LoadingBlock from "@/components/common/LoadingBlock";
+import { StatutoryBottlenecks, PriceVarianceByEntity, SpendByCategory } from "@/components/research/PolicyCharts";
+import ResearchExport from "@/components/research/ResearchExport";
+import EnterpriseScaleCapacity from "@/components/research/EnterpriseScaleCapacity";
+import { Button } from "@/components/ui/button";
+
+export default function ResearchPortal() {
+  const [metrics, setMetrics] = useState(null);
+  const [error, setError] = useState(null);
+
+  const load = async () => {
+    setError(null);
+    const { data, error: rpcError } = await supabase.rpc("policy_metrics");
+    if (rpcError) {
+      setError(rpcError.message);
+      return;
+    }
+    setMetrics(data);
+  };
+
+  useEffect(() => {
+    load();
+  }, []);
+
+  const totals = metrics?.totals || {};
+  const agpo = metrics?.agpo || {};
+
+  return (
+    <PortalShell
+      eyebrow="Policy & analytics"
+      title="Procurement Analytics &amp; Market Intelligence"
+      description="System-wide compliance trends, price variance across entities, and statutory review metrics derived from tender evaluations."
+      actions={
+        <Button variant="outline" onClick={load} className="border-navy/25 text-navy hover:bg-navy-soft">
+          <RefreshCw className="mr-2 h-4 w-4" />
+          Refresh figures
+        </Button>
+      }
+    >
+      <RoleGate roles={["researcher", "admin", "superadmin"]}>
+        {error ? (
+          <div className="rounded-lg border border-critical/30 bg-critical-soft p-3 text-sm text-critical">{error}</div>
+        ) : !metrics ? (
+          <LoadingBlock label="Loading procurement analytics" />
+        ) : (
+          <div className="space-y-6">
+            <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+              <StatCard label="Bids audited" value={totals.evaluations ?? 0} hint="Evaluated bid submissions" />
+              <StatCard
+                label="Reports signed off"
+                value={totals.signed_off ?? 0}
+                hint="Completed committee sign-offs"
+                tone="compliance"
+              />
+              <StatCard
+                label="Committee overrides"
+                value={totals.overrides ?? 0}
+                hint="Committee overrides with recorded notes"
+                tone="caution"
+              />
+              <StatCard
+                label="Preference-reserved tenders"
+                value={agpo.reserved_tenders ?? 0}
+                hint={(agpo.registered_bids ?? 0) + " bids from registered enterprises"}
+              />
+            </div>
+
+            <div className="grid gap-5 lg:grid-cols-2">
+              <StatutoryBottlenecks data={metrics.statutory_failures} />
+              <PriceVarianceByEntity data={metrics.by_entity} />
+            </div>
+
+            <div className="grid gap-5 lg:grid-cols-2">
+              <SpendByCategory data={metrics.by_category} />
+              <div className="space-y-5">
+                <ResearchExport />
+                <div className="rounded-xl border border-border bg-card p-5 shadow-sm">
+                  <div className="flex items-center gap-2">
+                    <BarChart3 className="h-4 w-4 text-navy" />
+                    <h3 className="font-semibold text-foreground">Coordination risk distribution</h3>
+                  </div>
+                  <ul className="mt-4 space-y-3">
+                    {(metrics.risk || []).map((row) => (
+                      <li key={row.band} className="flex items-center justify-between text-sm">
+                        <span className="text-muted-foreground">
+                          {row.band === "High"
+                            ? "High coordination risk"
+                            : row.band === "Watch"
+                              ? "Worth watching"
+                              : "No coordination signals"}
+                        </span>
+                        <span className="font-semibold text-navy">{row.count}</span>
+                      </li>
+                    ))}
+                    {(metrics.risk || []).length === 0 ? (
+                      <li className="text-sm text-muted-foreground">No audited bids yet.</li>
+                    ) : null}
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-6">
+              <EnterpriseScaleCapacity />
+            </div>
+          </div>
+        )}
+      </RoleGate>
+    </PortalShell>
+  );
+}

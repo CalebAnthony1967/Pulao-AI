@@ -1,0 +1,9 @@
+{
+  "standard": "OCDS 1.1 / Kenya PPADA 2015",
+  "generated_at": "2026-11-16T20:36:53.285Z",
+  "sandbox_root": "vault_sandbox",
+  "policies": {
+    "zero_unsourced_flags": true,
+    "never_auto_awards_tender": true
+  }
+}

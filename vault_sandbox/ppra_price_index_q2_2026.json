@@ -1,0 +1,78 @@
+{
+  "source": "Kenya Public Procurement Regulatory Authority (PPRA) Market Price Index Q2 2026 & Corporate ERP Baseline",
+  "currency": "KES",
+  "items": [
+    {
+      "id": "ppi_desktop_i7",
+      "item_category": "ICT Hardware",
+      "item_description": "Commercial Grade Desktop Computers Intel Core i7 32GB RAM 1TB SSD Kompyuta za Mezani",
+      "benchmark_price": 94000,
+      "allowed_deviation_margin": 0.15,
+      "unit": "Unit"
+    },
+    {
+      "id": "ppi_monitor_27_4k",
+      "item_category": "ICT Hardware",
+      "item_description": "27-inch 4K IPS Ultra-Slim Desktop Displays USB-C Monitor Skrini",
+      "benchmark_price": 27500,
+      "allowed_deviation_margin": 0.15,
+      "unit": "Unit"
+    },
+    {
+      "id": "ppi_poe_switch_24",
+      "item_category": "Networking",
+      "item_description": "24-Port Managed PoE+ Gigabit Network Switches Layer 2 Enterprise",
+      "benchmark_price": 72000,
+      "allowed_deviation_margin": 0.15,
+      "unit": "Unit"
+    },
+    {
+      "id": "ppi_cat6a_cabling",
+      "item_category": "Networking",
+      "item_description": "Structured Cat6A Pure Copper Cabling 24-Port Loaded Patch Panels",
+      "benchmark_price": 43000,
+      "allowed_deviation_margin": 0.15,
+      "unit": "Lot"
+    },
+    {
+      "id": "ppi_laptop_enterprise",
+      "item_category": "ICT Hardware",
+      "item_description": "Enterprise Business Laptop 14-inch Core i7 16GB RAM 512GB SSD",
+      "benchmark_price": 115000,
+      "allowed_deviation_margin": 0.15,
+      "unit": "Unit"
+    },
+    {
+      "id": "ppi_solar_pump",
+      "item_category": "Water & Energy",
+      "item_description": "Submersible Solar Borehole Water Pump 3HP Inverter Pampu ya Maji ya Jua",
+      "benchmark_price": 185000,
+      "allowed_deviation_margin": 0.15,
+      "unit": "Unit"
+    },
+    {
+      "id": "ppi_medical_gloves",
+      "item_category": "Healthcare",
+      "item_description": "Sterile Surgical Examination Nitrile Gloves Box of 100 Glavu za Upasuaji",
+      "benchmark_price": 1250,
+      "allowed_deviation_margin": 0.15,
+      "unit": "Box"
+    },
+    {
+      "id": "ppi_textbooks_cbc",
+      "item_category": "Education",
+      "item_description": "CBC Primary School Mathematics Learner Textbook Vitabu vya Shule",
+      "benchmark_price": 680,
+      "allowed_deviation_margin": 0.15,
+      "unit": "Copy"
+    },
+    {
+      "id": "ppi_bitumen_drum",
+      "item_category": "Infrastructure",
+      "item_description": "Bitumen 80/100 Penetration Grade Road Construction Drum Lami ya Barabara",
+      "benchmark_price": 24500,
+      "allowed_deviation_margin": 0.15,
+      "unit": "Drum"
+    }
+  ]
+}
